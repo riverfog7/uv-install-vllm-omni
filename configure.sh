@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 
 SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
+DOWNLOAD_MODEL=${DOWNLOAD_MODEL:-"1"}
+MODEL_DIR=${MODEL_DIR:-"$SCRIPT_DIR/model"}
+
+cd "$SCRIPT_DIR" || exit 1
 
 if [ "$(uname)" != "Linux" ]; then
     echo "Unsupported OS: $(uname). This script supports only Linux and macOS."
@@ -34,3 +38,10 @@ fi
 echo "Running: uv sync"
 cd "$SCRIPT_DIR" || exit 1
 uv sync --frozen --no-dev
+
+
+if [ "$DOWNLOAD_MODEL" == "1" ]; then
+    echo "Downloading models to ${MODEL_DIR}"
+    mkdir -p "${MODEL_DIR}"
+    uv tool run --with hf_transfer hf download cybermotaz/Qwen3-Omni-30B-A3B-Instruct-NVFP4 --local-dir "${MODEL_DIR}"
+fi
