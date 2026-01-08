@@ -43,5 +43,5 @@ uv sync --frozen --no-dev
 if [ "$DOWNLOAD_MODEL" == "1" ]; then
     echo "Downloading models to ${MODEL_DIR}"
     mkdir -p "${MODEL_DIR}"
-    uv tool run --with hf_transfer hf download cybermotaz/Qwen3-Omni-30B-A3B-Instruct-NVFP4 --local-dir "${MODEL_DIR}"
+    uv tool run --with hf_transfer hf download cyankiwi/Qwen3-Omni-30B-A3B-Instruct-AWQ-4bit --cache-dir "${MODEL_DIR}"
 fi
